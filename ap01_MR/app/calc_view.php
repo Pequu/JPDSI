@@ -11,11 +11,11 @@
 	<fieldset>
 		<legend>Kalkulator Kredytowy</legend>	
 		<label for="id_kwota">Kwota: </label>
-		<input id="id_kwota" type="number" name="kwota" value="<?php isset($kwota)?print($kwota):""; ?>" placeholder="5000 PLN" /><br />
+		<input id="id_kwota" type="number" name="kwota" value="<?php isset($kwota)?print($kwota):""; ?>" placeholder="5000 PLN" min="1" /><br />
 		<label for="id_proc">Oprocentowanie: </label>
 		<input id="id_proc" type="number" name="proc" value="<?php isset($procenty)?print($procenty):""; ?>" placeholder="5 = 5%" /><br />
 		<label for="id_lat">Ilość lat: </label>
-		<input id="id_lat" type="number" name="lata" value="<?php isset($lat)?print($lat):""; ?>" placeholder="2 lata" /><br />
+		<input id="id_lat" type="number" name="lata" value="<?php isset($lat)?print($lat):""; ?>" placeholder="2 lata" min="1" /><br />
 		<input type="submit" value="Oblicz" />
 		
 	</fieldset>

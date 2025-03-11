@@ -39,8 +39,8 @@ if (empty( $messages )) {
 		$messages [] = 'Kwota nie jest liczbą całkowitą';
 	}
 
-	if (! is_numeric( $procenty )) {
-		$messages [] = 'Oprocentowanie nie jest liczbą całkowitą';
+	if (! is_numeric( $procenty ) || $procenty <= 0) {
+		$messages [] = 'Oprocentowanie źle podane';
 	}
 	
 	if (! is_numeric( $lat )) {
@@ -55,12 +55,14 @@ if (empty ( $messages )) { // gdy brak błędów
 	
 	//konwersja parametrów na int
 	$kwota = intval($kwota);
-	$procenty = intval($procenty);
+	$procenty = doubleval($procenty);
 	$lat = intval($lat);
 	
 	//wykonanie operacji
-	$oprocentowane = ($procenty*0.01)*$kwota;
-	$result = ($oprocentowane+$kwota)/ ($lat * 12);
+	$proc = $procenty * 0.01;
+	$proc = $proc * $lat;
+	$oprocentowanie = $proc * $kwota;
+	$result = ($oprocentowanie + $kwota) / 12;
 }
 
 // 4. Wywołanie widoku z przekazaniem zmiennych
