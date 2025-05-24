@@ -74,10 +74,10 @@ class PersonEditCtrl {
                     "idperson" => $this->form->id
                 ]);
                 // 2.1 jeśli osoba istnieje to wpisz dane do obiektu formularza
-                $this->form->id = $record['idperson'];
-                $this->form->name = $record['name'];
-                $this->form->surname = $record['surname'];
-                $this->form->birthdate = $record['birthdate'];
+                $this->form->id = $record['idAccount'];
+                $this->form->name = $record['accName'];
+                $this->form->surname = $record['accSurname'];
+                $this->form->birthdate = $record['accBirthdate'];
             } catch (\PDOException $e) {
                 Utils::addErrorMessage('Wystąpił błąd podczas odczytu rekordu');
                 if (App::getConf()->debug)

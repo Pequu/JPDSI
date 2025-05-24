@@ -17,6 +17,16 @@
 				<div  class="col-12 col-12-mobile">
 					<input type="submit" value="zaloguj"/>
 				</div>
+
+				<div class="col-12">
+					{if $msgs->isError()}
+						<ul>
+						{foreach $msgs->getMessages() as $msg}
+							<li>{$msg->text}</li>
+						{/foreach}
+						</ul>
+					{/if}
+				</div>
 			</div>
 			<br>
 	</form>	

@@ -38,7 +38,7 @@ class PersonListCtrl {
         // 2. Przygotowanie mapy z parametrami wyszukiwania (nazwa_kolumny => wartość)
         $search_params = []; //przygotowanie pustej struktury (aby była dostępna nawet gdy nie będzie zawierała wierszy)
         if (isset($this->form->surname) && strlen($this->form->surname) > 0) {
-            $search_params['surname[~]'] = $this->form->surname . '%'; // dodanie symbolu % zastępuje dowolny ciąg znaków na końcu
+            $search_params['accSurname[~]'] = $this->form->surname . '%'; // dodanie symbolu % zastępuje dowolny ciąg znaków na końcu
         }
 
         // 3. Pobranie listy rekordów z bazy danych
@@ -52,21 +52,21 @@ class PersonListCtrl {
             $where = &$search_params;
         }
         //dodanie frazy sortującej po nazwisku
-        $where ["ORDER"] = "surname";
+        $where ["ORDER"] = "accSurname";
         //wykonanie zapytania
 
-        // try {
-        //     $this->records = App::getDB()->select("person", [
-        //         "idperson",
-        //         "name",
-        //         "surname",
-        //         "birthdate",
-        //             ], $where);
-        // } catch (\PDOException $e) {
-        //     Utils::addErrorMessage('Wystąpił błąd podczas pobierania rekordów');
-        //     if (App::getConf()->debug)
-        //         Utils::addErrorMessage($e->getMessage());
-        // }
+        try {
+            $this->records = App::getDB()->select("accounts", [
+                "idAccount",
+                "accName",
+                "accSurname",
+                "accLogin",
+                    ], $where);
+        } catch (\PDOException $e) {
+            Utils::addErrorMessage('Wystąpił błąd podczas pobierania rekordów');
+            if (App::getConf()->debug)
+                Utils::addErrorMessage($e->getMessage());
+        }
 
         // 4. wygeneruj widok
         App::getSmarty()->assign('searchForm', $this->form); // dane formularza (wyszukiwania w tym wypadku)

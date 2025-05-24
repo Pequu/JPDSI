@@ -11,7 +11,7 @@ use app\forms\LoginForm;
 class LoginCtrl {
 
     private $form;
-
+    private $records;
     public function __construct() {
         //stworzenie potrzebnych obiektów
         $this->form = new LoginForm();
@@ -37,12 +37,30 @@ class LoginCtrl {
         if (App::getMessages()->isError())
             return false;
 
+        //$where="accLogin =".$this->form->login." AND accPass = ".$this->form->pass;
         // sprawdzenie, czy dane logowania poprawne
-        // (takie informacje najczęściej przechowuje się w bazie danych)
-        if ($this->form->login == "admin" && $this->form->pass == "admin") {
-            RoleUtils::addRole('admin');
-        } else if ($this->form->login == "user" && $this->form->pass == "user") {
-            RoleUtils::addRole('user');
+        try {
+            // 2. odczyt z bazy danych osoby o podanym ID (tylko jednego rekordu)
+            $record = App::getDB()->get("accounts", [
+                "accLogin",
+                "accPass",
+                    ],[
+                "accLogin" => $this->form->login
+                    ]);
+            // 2.1 jeśli osoba istnieje to wpisz dane do obiektu formularza
+        } catch (\PDOException $e) {
+            Utils::addErrorMessage('Wystąpił błąd podczas odczytu rekordu');
+            if (App::getConf()->debug)
+                Utils::addErrorMessage($e->getMessage());
+        }
+
+         // (takie informacje najczęściej przechowuje się w bazie danych)
+         if ($record && $record['accPass'] == $this->form->pass) {
+            if ($record['accLogin'] == 'admin') {
+                RoleUtils::addRole('admin');
+            } else {
+                RoleUtils::addRole('user');
+            }
         } else {
             Utils::addErrorMessage('Niepoprawny login lub hasło');
         }
