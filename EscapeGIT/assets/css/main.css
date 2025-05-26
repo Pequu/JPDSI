@@ -141,6 +141,10 @@ input, select, textarea {
 		font-size: 1.5em;
 	}
 
+	h4 {
+		font-size: 1.25em;
+	}
+
 	header {
 		margin: 0 0 2em 0;
 	}
@@ -2357,7 +2361,7 @@ input, select, textarea {
 			#main {
 				margin-left: 300px;
 			}
-
+		/* Login */
 			#login {
 				margin-left: 300px;
 			}
@@ -2381,7 +2385,7 @@ input, select, textarea {
 		/* login */
 
 			#login > section {
-				padding: 3em 0;
+				padding: 0;
 			}
 
 			#login section.cover {
@@ -2683,11 +2687,11 @@ input, select, textarea {
 		}
 
 			#login > section {
-				padding: 3em 0;
+				padding: 0;
 			}
 
 			#login section.cover {
-				padding: 4em 0;
+				padding: 0;
 			}
 
 	}
@@ -2736,11 +2740,11 @@ input, select, textarea {
 		/* login */
 
 		#login > section {
-			padding: 2em 0;
+			padding: 0;
 		}
 
 		#login section.cover {
-			padding: 4em 0em;
+			padding:0em;
 		}
 
 			#login section.cover header {
@@ -2797,4 +2801,19 @@ input, select, textarea {
 	}
 	.t-center{
 		text-align: center;
+	}
+	.room-disp{
+		border: 2px solid hsl(181, 19%, 58%);
+		border-radius: .25em;
+		background-color: rgba(30, 70, 70, 0.05);
+		padding-top: .5em;
+	}
+
+	.room-disp > .br{
+		box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+	}
+	
+	.admin-pan h1{
+		font-size: 3em;
+		font-weight: bold;
 	}

@@ -1,6 +1,6 @@
 {extends file="main.tpl"}
 
-{block name=logging}
+{block name=toptop}
 <div class="container">
 	<br>
 	<form action="{$conf->action_root}login" method="post">
@@ -32,14 +32,3 @@
 	</form>	
 </div>
 {/block}
-
-
-<div class="container">
-<form action="{$conf->action_url}personList">
-	<h3>Opcje wyszukiwania</h3>
-	<div class="row">
-		<div class="col-4 col-12-mobile"><input type="text" placeholder="nazwa" name="sf_surname" value="{$searchForm->surname}" /></div>
-		<div class="col-4 col-12-mobile"><button type="submit" >Filtruj</button></div>
-	</div>
-</form>
-</div>	

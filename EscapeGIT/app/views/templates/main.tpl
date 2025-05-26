@@ -16,7 +16,7 @@
 	<!-- Login -->
 		<div id="login">
 			<section>
-				{block name=logging}{/block}
+				{block name=toptop}{/block}
 			</section>
 		</div>
 
@@ -28,7 +28,7 @@
 					<!-- Logo -->
 						<div id="logo">
 							<span class="image avatar48"><img src="{$conf->asset_path}/images/logo.jpg" alt="logo" /></span>
-							<h1 id="title">Escapists</h1>
+							<a href="{$conf->action_root}"><h1 id="title">Escapists</h1></a>
 							<h2>Escape Room'y</h2>
 						</div>
 
@@ -42,15 +42,20 @@
 							</ul>
 						</nav>
 
-						<nav id="nav">
-							<ul>
-								<li>{if count($conf->roles)>0}
-									<a href="{$conf->action_root}logout"><span class="icon solid fa-user-lock">Wyloguj</span</a>
-								{else}	
-									<a href="{$conf->action_root}loginShow"><span class="icon solid fa-lock">Zaloguj</span></a>
-								{/if}</li>
-							</ul>
-						</nav>
+							<nav id="nav">
+						<ul>
+							<li>{if count($conf->roles)>0}
+								<a href="{$conf->action_root}logout"><span class="icon solid fa-user-lock">Wyloguj</span</a>
+							{else}	
+								<a href="{$conf->action_root}loginShow"><span class="icon solid fa-lock">Zaloguj</span></a>
+							{/if}</li>
+							
+							<li>{if isset($conf->roles.admin)}
+
+								<a href="{$conf->action_root}adminPanel"><span class="icon solid fa-tv">Admin Panel</a></span
+							{/if}</li>
+						</ul>
+					</nav>
 
 				</div>
 
@@ -69,6 +74,12 @@
 
 			</div>
 			
+			<!-- admin panel -->
+		<div id="admin-panel">
+			<section>
+				{block name=adminPanel}{/block}
+			</section>
+		</div>
 
 			<!-- Main -->
 			<div id="main">

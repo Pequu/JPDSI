@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.30, created on 2025-05-19 20:58:23
+/* Smarty version 3.1.30, created on 2025-05-25 23:55:04
   from "G:\XAMPP\htdocs\Escape\app\views\templates\main.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.30',
-  'unifunc' => 'content_682b7f4f637035_82749976',
+  'unifunc' => 'content_683391b85eb2c4_44557766',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '9054d67ccbf60dc7b37caff5a0ab970685e45024' => 
     array (
       0 => 'G:\\XAMPP\\htdocs\\Escape\\app\\views\\templates\\main.tpl',
-      1 => 1747681102,
+      1 => 1748210103,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_682b7f4f637035_82749976 (Smarty_Internal_Template $_smarty_tpl) {
+function content_683391b85eb2c4_44557766 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_loadInheritance();
 $_smarty_tpl->inheritance->init($_smarty_tpl, false);
 ?>
@@ -45,7 +45,7 @@ $_smarty_tpl->inheritance->init($_smarty_tpl, false);
 		<div id="login">
 			<section>
 				<?php 
-$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_1295573560682b7f4f632a88_25051299', 'logging');
+$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_1211549799683391b85e6010_88416707', 'toptop');
 ?>
 
 			</section>
@@ -60,7 +60,8 @@ $_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_1295573560682b7f4f
 						<div id="logo">
 							<span class="image avatar48"><img src="<?php echo $_smarty_tpl->tpl_vars['conf']->value->asset_path;?>
 /images/logo.jpg" alt="logo" /></span>
-							<h1 id="title">Escapists</h1>
+							<a href="<?php echo $_smarty_tpl->tpl_vars['conf']->value->action_root;?>
+"><h1 id="title">Escapists</h1></a>
 							<h2>Escape Room'y</h2>
 						</div>
 
@@ -74,17 +75,23 @@ $_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_1295573560682b7f4f
 							</ul>
 						</nav>
 
-						<nav id="nav">
-							<ul>
-								<li><?php if (count($_smarty_tpl->tpl_vars['conf']->value->roles) > 0) {?>
-									<a href="<?php echo $_smarty_tpl->tpl_vars['conf']->value->action_root;?>
+							<nav id="nav">
+						<ul>
+							<li><?php if (count($_smarty_tpl->tpl_vars['conf']->value->roles) > 0) {?>
+								<a href="<?php echo $_smarty_tpl->tpl_vars['conf']->value->action_root;?>
 logout"><span class="icon solid fa-user-lock">Wyloguj</span</a>
-								<?php } else { ?>	
-									<a href="<?php echo $_smarty_tpl->tpl_vars['conf']->value->action_root;?>
+							<?php } else { ?>	
+								<a href="<?php echo $_smarty_tpl->tpl_vars['conf']->value->action_root;?>
 loginShow"><span class="icon solid fa-lock">Zaloguj</span></a>
-								<?php }?></li>
-							</ul>
-						</nav>
+							<?php }?></li>
+							
+							<li><?php if (isset($_smarty_tpl->tpl_vars['conf']->value->roles['admin'])) {?>
+
+								<a href="<?php echo $_smarty_tpl->tpl_vars['conf']->value->action_root;?>
+adminPanel"><span class="icon solid fa-tv">Admin Panel</a></span
+							<?php }?></li>
+						</ul>
+					</nav>
 
 				</div>
 
@@ -103,6 +110,15 @@ loginShow"><span class="icon solid fa-lock">Zaloguj</span></a>
 
 			</div>
 			
+			<!-- admin panel -->
+		<div id="admin-panel">
+			<section>
+				<?php 
+$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_1742926223683391b85e9850_02087032', 'adminPanel');
+?>
+
+			</section>
+		</div>
 
 			<!-- Main -->
 			<div id="main">
@@ -143,7 +159,7 @@ loginShow"><span class="icon solid fa-lock">Zaloguj</span></a>
 
 				<section id="pokoje">
 				<?php 
-$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_1111838881682b7f4f635b50_34214173', 'content');
+$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_969581455683391b85e9ee4_98573721', 'content');
 ?>
 
 				</section>
@@ -222,15 +238,22 @@ $_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_1111838881682b7f4f
 
 	</body>
 </html><?php }
-/* {block 'logging'} */
-class Block_1295573560682b7f4f632a88_25051299 extends Smarty_Internal_Block
+/* {block 'toptop'} */
+class Block_1211549799683391b85e6010_88416707 extends Smarty_Internal_Block
 {
 public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
 }
 }
-/* {/block 'logging'} */
+/* {/block 'toptop'} */
+/* {block 'adminPanel'} */
+class Block_1742926223683391b85e9850_02087032 extends Smarty_Internal_Block
+{
+public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
+}
+}
+/* {/block 'adminPanel'} */
 /* {block 'content'} */
-class Block_1111838881682b7f4f635b50_34214173 extends Smarty_Internal_Block
+class Block_969581455683391b85e9ee4_98573721 extends Smarty_Internal_Block
 {
 public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
 }

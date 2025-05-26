@@ -22,13 +22,13 @@
 	{foreach $people as $p}
 	{strip}
 		<div class="col-4 col-12-mobile">
-			<p>{$p["accName"]},   
-				{$p["accSurname"]}, 
-				{$p["accLogin"]}
-				// <a href="{$conf->action_url}personEdit/{$p['idAccount']}">Edytuj</a>
+			{$p["name"]}<br>
+			{$p["surname"]}<br>
+			{$p["birthdate"]}<br>
+				// <a href="{$conf->action_url}personEdit/{$p['idperson']}">Edytuj</a>
 				// &nbsp;
-				// <a href="{$conf->action_url}personDelete/{$p['idAccount']}">Usuń</a> <br>
-			</p>
+				// <a href="{$conf->action_url}personDelete/{$p['idperson']}">Usuń</a> <br>
+			
 	{/strip}
 	</div>
 	{/foreach}

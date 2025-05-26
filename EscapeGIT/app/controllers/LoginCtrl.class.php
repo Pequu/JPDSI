@@ -37,14 +37,18 @@ class LoginCtrl {
         if (App::getMessages()->isError())
             return false;
 
-        //$where="accLogin =".$this->form->login." AND accPass = ".$this->form->pass;
-        // sprawdzenie, czy dane logowania poprawne
+        $where="accLogin =".$this->form->login." AND accPass = ".$this->form->pass;
         try {
-            // 2. odczyt z bazy danych osoby o podanym ID (tylko jednego rekordu)
+            // Pobierz użytkowników wraz z rolami
             $record = App::getDB()->get("accounts", [
-                "accLogin",
-                "accPass",
-                    ],[
+                "[><]accroles" => ["idAccount" => "acc_idAccount"],
+                "[><]roles"    => ["accroles.roles_idRole" => "idRole"]
+            ], [
+                "accounts.accLogin",
+                "accounts.accPass",
+                "accounts.accIsActive",
+                "roles.roleName"
+            ],[
                 "accLogin" => $this->form->login
                     ]);
             // 2.1 jeśli osoba istnieje to wpisz dane do obiektu formularza
@@ -54,13 +58,25 @@ class LoginCtrl {
                 Utils::addErrorMessage($e->getMessage());
         }
 
+        // try {
+        //     // 2. odczyt z bazy danych osoby o podanym ID (tylko jednego rekordu)
+        //     $record = App::getDB()->get("accounts", [
+        //         "accLogin",
+        //         "accPass",
+        //             ],[
+        //         "accLogin" => $this->form->login
+        //             ]);
+        //     // 2.1 jeśli osoba istnieje to wpisz dane do obiektu formularza
+        // } catch (\PDOException $e) {
+        //     Utils::addErrorMessage('Wystąpił błąd podczas odczytu rekordu');
+        //     if (App::getConf()->debug)
+        //         Utils::addErrorMessage($e->getMessage());
+        // }
+
          // (takie informacje najczęściej przechowuje się w bazie danych)
-         if ($record && $record['accPass'] == $this->form->pass) {
-            if ($record['accLogin'] == 'admin') {
-                RoleUtils::addRole('admin');
-            } else {
-                RoleUtils::addRole('user');
-            }
+         if ($record && $record['accPass'] == $this->form->pass && $record['accIsActive'] == 1) {
+            RoleUtils::addRole($record['roleName']);
+            
         } else {
             Utils::addErrorMessage('Niepoprawny login lub hasło');
         }
