@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Maj 25, 2025 at 03:50 PM
--- Wersja serwera: 10.4.32-MariaDB
--- Wersja PHP: 8.2.12
+-- Generation Time: Maj 27, 2025 at 09:49 AM
+-- Wersja serwera: 10.4.28-MariaDB
+-- Wersja PHP: 8.0.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -60,6 +60,15 @@ CREATE TABLE `accroles` (
   `roles_idRole` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 
+--
+-- Dumping data for table `accroles`
+--
+
+INSERT INTO `accroles` (`idAR`, `acc_idAccount`, `roles_idRole`) VALUES
+(1, 1, 1),
+(4, 4, 3),
+(7, 3, 2);
+
 -- --------------------------------------------------------
 
 --
@@ -91,6 +100,15 @@ CREATE TABLE `roles` (
   `roleDeletion` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 
+--
+-- Dumping data for table `roles`
+--
+
+INSERT INTO `roles` (`idRole`, `roleName`, `roleIsActive`, `roleCreation`, `roleDeletion`) VALUES
+(1, 'admin', 1, '2025-05-25', NULL),
+(2, 'pracownik', 1, '2025-05-25', NULL),
+(3, 'klient', 1, '2025-05-25', NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -104,8 +122,19 @@ CREATE TABLE `rooms` (
   `roomPrice` int(11) NOT NULL,
   `roomCreation` date NOT NULL,
   `roomDeletion` date DEFAULT NULL,
-  `roomIsActive` tinyint(1) NOT NULL
+  `roomIsActive` tinyint(1) NOT NULL,
+  `roomCover` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
+
+--
+-- Dumping data for table `rooms`
+--
+
+INSERT INTO `rooms` (`idRoom`, `roomName`, `roomDescription`, `roomPrice`, `roomCreation`, `roomDeletion`, `roomIsActive`, `roomCover`) VALUES
+(1, 'Wrota Tajemnic', 'Przejdź przez wrota i wkrocz w tajemniczy świat i rozwiąż łamiące umysł zagadki. Wciel się w role poszukiwaczy przygód szukających skarbu z mitycznej legendy!', 79, '2025-05-25', NULL, 1, 1),
+(2, 'Podwodny Statek', 'Pogłoski okazały się prawdą i znalazłeś się z bandą w niedawno zatopionej łodzi straszliwego pirata, który siał postrach po 7 morzach i jesteście zdeterminowani do złamania szyfru i dotarcia do jego wielkiego skarbu! ', 89, '2025-05-13', NULL, 1, 2),
+(3, 'Baza Księżycowa', 'W tej wyprawie udasz się w podróż na księżyc przy użyciu najnowocześniejszej rakiety Astrono V. Przy tej futurystycznej misji będziesz używał przyszłościowych narzędzi. chodzą pogłoski, że widziano tam Obce organizmy więc BĄDŹ UWAŻNY!', 129, '2025-04-09', NULL, 1, 6),
+(4, 'Klątwa Faraona', 'Podczas eksploracji starożytnych piramid w celu odnalezienia sekretów Faraonów popełniliście jeden błąd... ktoś z was zabrał co nie należało do niech. Zmagajcie się z uciekającym tlenem w krypcie i ucieknijcie zanim stanie się waszym grobowcem.', 99, '2024-07-17', NULL, 1, 3);
 
 -- --------------------------------------------------------
 
@@ -181,7 +210,7 @@ ALTER TABLE `accounts`
 -- AUTO_INCREMENT for table `accroles`
 --
 ALTER TABLE `accroles`
-  MODIFY `idAR` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idAR` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `reservations`
@@ -193,13 +222,13 @@ ALTER TABLE `reservations`
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `idRole` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idRole` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `rooms`
 --
 ALTER TABLE `rooms`
-  MODIFY `idRoom` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idRoom` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `vouchers`
