@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Maj 27, 2025 at 09:49 AM
--- Wersja serwera: 10.4.28-MariaDB
--- Wersja PHP: 8.0.28
+-- Generation Time: Cze 02, 2025 at 10:44 PM
+-- Wersja serwera: 10.4.32-MariaDB
+-- Wersja PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -44,9 +44,12 @@ CREATE TABLE `accounts` (
 --
 
 INSERT INTO `accounts` (`idAccount`, `accName`, `accSurname`, `accBirthDate`, `accIsActive`, `accCreation`, `accDeletion`, `accPass`, `accLogin`) VALUES
-(1, 'administrator', '', '0000-00-00', 1, '2025-05-23', NULL, '123', 'admin'),
-(3, 'Mateusz', 'Rzymowski', '2002-09-27', 1, '2025-05-23', NULL, 'mati', 'mati'),
-(4, 'Adrian', 'Kuc', '2002-03-18', 1, '2025-05-23', NULL, 'kuc', 'adrian');
+(1, 'administrator', '', '0000-00-00', 1, '2025-05-23', NULL, '$2y$10$g6.X0nr2RrUajDYCCbbqX..nQNLEqOuRe4uZ9us13N2FFEd/ucEBK', 'admin'),
+(3, 'Mateusz', 'Rzymowski', '2002-09-27', 1, '2025-05-23', NULL, '$2y$10$qE8ueykvbsjBOVjDagvVYO96/7X7uVNwRvU/c6sBnQCyGT/iOS9DC', 'mati'),
+(4, 'Adrian', 'Kuc', '2002-03-18', 1, '2025-05-23', NULL, '$2y$10$TmpCgmzn2wmFSV9PcJ3w5e8Tqm7gedBUQp68yrRThPTeK64IGK9I2', 'adrian'),
+(10, 'Emilia', 'Dąbrowska', '2003-03-10', 1, '2025-05-29', NULL, '$2y$10$/.mdPF57oK71c98g/11QzeuTk1GmvNn/3EQee54dsrfwoe4IfuVSe', 'emson07'),
+(11, 'Daniel', 'Dąbrowski', '2209-09-24', 1, '2025-05-29', NULL, '$2y$10$QJIWRl0JmoYGubezwAWM/eK25/fkyQl95bjv.h9AULlaG.0F4eJjC', 'danio'),
+(12, 'test', 'test', '2003-02-22', 1, '2025-05-29', NULL, '$2y$10$BFPrXoaVCUcenxJiqmt13erLV.5kF8AEcYq6j2FG0oNk9gwS472eC', 'test');
 
 -- --------------------------------------------------------
 
@@ -67,7 +70,10 @@ CREATE TABLE `accroles` (
 INSERT INTO `accroles` (`idAR`, `acc_idAccount`, `roles_idRole`) VALUES
 (1, 1, 1),
 (4, 4, 3),
-(7, 3, 2);
+(7, 3, 2),
+(9, 10, 3),
+(10, 11, 3),
+(11, 12, 3);
 
 -- --------------------------------------------------------
 
@@ -80,11 +86,38 @@ CREATE TABLE `reservations` (
   `resDate` date NOT NULL,
   `resPayment` int(11) DEFAULT NULL,
   `resPrice` int(11) NOT NULL,
-  `resIsActive` int(11) NOT NULL,
+  `resIsActive` tinyint(1) NOT NULL,
   `rooms_idRoom` int(11) NOT NULL,
-  `vouchers_idVoucher` int(11) NOT NULL,
+  `vouchers_idVoucher` int(11) DEFAULT NULL,
   `accounts_idAccount` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
+
+--
+-- Dumping data for table `reservations`
+--
+
+INSERT INTO `reservations` (`idReservation`, `resDate`, `resPayment`, `resPrice`, `resIsActive`, `rooms_idRoom`, `vouchers_idVoucher`, `accounts_idAccount`) VALUES
+(1, '2025-06-10', NULL, 99, 1, 4, NULL, 10),
+(2, '2025-06-07', NULL, 129, 1, 3, NULL, 10),
+(3, '2025-06-04', NULL, 99, 1, 4, NULL, 10),
+(4, '2025-06-10', NULL, 89, 1, 2, NULL, 4),
+(5, '2025-06-20', NULL, 99, 1, 4, NULL, 11),
+(6, '2025-06-16', NULL, 89, 1, 2, NULL, 11),
+(7, '2025-06-05', NULL, 79, 1, 1, NULL, 11),
+(8, '2025-06-08', NULL, 129, 1, 3, NULL, 11),
+(9, '2025-06-03', NULL, 79, 1, 1, NULL, 10),
+(10, '2025-06-03', NULL, 89, 1, 2, NULL, 10),
+(11, '2025-06-18', NULL, 99, 1, 4, NULL, 10),
+(12, '2025-07-10', NULL, 89, 1, 4, 1, 10),
+(13, '2025-07-18', NULL, 104, 1, 3, 2, 10),
+(14, '2025-09-18', NULL, 96, 1, 3, 3, 10),
+(15, '2025-06-13', NULL, 129, 1, 3, NULL, 10),
+(16, '2025-06-03', 1, 79, 1, 1, NULL, 10),
+(17, '2025-06-11', 2, 99, 1, 4, NULL, 11),
+(18, '2025-06-08', 2, 79, 1, 1, NULL, 11),
+(19, '2025-06-08', 1, 99, 1, 4, NULL, 11),
+(20, '2025-06-01', 1, 29, 1, 1, 4, 11),
+(21, '2025-06-25', 1, 79, 1, 3, 4, 11);
 
 -- --------------------------------------------------------
 
@@ -152,6 +185,16 @@ CREATE TABLE `vouchers` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 
 --
+-- Dumping data for table `vouchers`
+--
+
+INSERT INTO `vouchers` (`idVoucher`, `voName`, `voAmount`, `voIsActive`, `voCreation`, `voDeletion`) VALUES
+(1, 'maj10', 10, 1, '2025-06-02', NULL),
+(2, 'lipiec25', 25, 1, '2025-06-01', NULL),
+(3, '33proc', 33, 1, '2025-05-02', NULL),
+(4, 'FM50', 50, 1, '2025-06-02', NULL);
+
+--
 -- Indeksy dla zrzutów tabel
 --
 
@@ -204,19 +247,19 @@ ALTER TABLE `vouchers`
 -- AUTO_INCREMENT for table `accounts`
 --
 ALTER TABLE `accounts`
-  MODIFY `idAccount` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idAccount` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `accroles`
 --
 ALTER TABLE `accroles`
-  MODIFY `idAR` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `idAR` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `reservations`
 --
 ALTER TABLE `reservations`
-  MODIFY `idReservation` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idReservation` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `roles`
@@ -234,7 +277,7 @@ ALTER TABLE `rooms`
 -- AUTO_INCREMENT for table `vouchers`
 --
 ALTER TABLE `vouchers`
-  MODIFY `idVoucher` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idVoucher` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables
