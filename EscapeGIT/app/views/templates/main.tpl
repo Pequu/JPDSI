@@ -34,25 +34,30 @@
 
 					<!-- Nav -->
 						<nav id="nav">
+							{if !isset($conf->roles.admin) && !isset($conf->roles.pracownik)}
 							<ul>
 								<li><a href="#top" id="top-link"><span class="icon solid fa-home">Menu</span></a></li>
 								<li><a href="#about" id="about-link"><span class="icon solid fa-user">O Nas</span></a></li>
 								<li><a href="#pokoje" id="pokoje-link"><span class="icon solid fa-th">Pokoje</span></a></li>
 								<li><a href="#contact" id="contact-link"><span class="icon solid fa-envelope">Kontakt</span></a></li>
 							</ul>
+							{/if}
 						</nav>
 
 							<nav id="nav">
 						<ul>
 							<li>{if count($conf->roles)>0}
-								<a href="{$conf->action_root}logout"><span class="icon solid fa-user-lock">Wyloguj</span</a>
+								<a href="{$conf->action_root}logout"><span class="icon solid fa-user-lock">Wyloguj</span></a>
 							{else}	
 								<a href="{$conf->action_root}loginShow"><span class="icon solid fa-lock">Zaloguj</span></a>
 							{/if}</li>
 							
 							<li>{if isset($conf->roles.admin)}
+								<a href="{$conf->action_root}adminPanel"><span class="icon solid fa-tv">Admin Panel</a></span>
+							{/if}</li>
 
-								<a href="{$conf->action_root}adminPanel"><span class="icon solid fa-tv">Admin Panel</a></span
+							<li>{if isset($conf->roles.pracownik)}
+								<a href="{$conf->action_root}workerPanelEdit"><span class="icon solid fa-tv">Panel Pracownika</a></span>
 							{/if}</li>
 						</ul>
 					</nav>
@@ -74,16 +79,10 @@
 
 			</div>
 			
-			<!-- admin panel -->
-		<div id="admin-panel">
-			<section>
-				{block name=adminPanel}{/block}
-			</section>
-		</div>
 
 			<!-- Main -->
 			<div id="main">
-
+				{if !isset($conf->roles.admin) && !isset($conf->roles.pracownik)}
 				<!-- Intro -->
 					<section id="top" class="one dark cover">
 						<div class="container">
@@ -135,8 +134,10 @@
 
 							<form method="post" action="#">
 								<div class="row">
+									{if empty($conf->roles)}
 									<div class="col-6 col-12-mobile"><input type="text" name="name" placeholder="Imię" /></div>
 									<div class="col-6 col-12-mobile"><input type="text" name="email" placeholder="Email" /></div>
+									{/if}
 									<div class="col-12">
 										<textarea name="message" placeholder="Wiadomość"></textarea>
 									</div>
@@ -149,7 +150,7 @@
 						</div>
 						<br>
 					</section>
-			
+				{/if}
 			</div>
 
 

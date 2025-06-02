@@ -28,6 +28,9 @@
 					{/if}
 				</div>
 			</div>
+			<div class="col-12">
+					<a href="{$conf->action_root}registerShow">Nie masz konta?</a>
+				</div>
 			<br>
 	</form>	
 </div>

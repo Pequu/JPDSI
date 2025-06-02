@@ -1848,6 +1848,7 @@ input, select, textarea {
 	form input[type="text"],
 	form input[type="email"],
 	form input[type="password"],
+	input[type="date"],
 	form select,
 	form textarea {
 		position: relative;
@@ -1882,6 +1883,10 @@ input, select, textarea {
 	form input[type="password"],
 	form select {
 		line-height: 1.25em;
+	}
+	
+	input[type="date"]{
+		height: 2.8em;
 	}
 
 	form textarea {

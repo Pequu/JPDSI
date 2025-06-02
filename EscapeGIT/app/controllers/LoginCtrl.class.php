@@ -37,49 +37,44 @@ class LoginCtrl {
         if (App::getMessages()->isError())
             return false;
 
-        $where="accLogin =".$this->form->login." AND accPass = ".$this->form->pass;
         try {
             // Pobierz użytkowników wraz z rolami
             $record = App::getDB()->get("accounts", [
                 "[><]accroles" => ["idAccount" => "acc_idAccount"],
                 "[><]roles"    => ["accroles.roles_idRole" => "idRole"]
             ], [
+                "accounts.idAccount",  // dodaj ID
                 "accounts.accLogin",
                 "accounts.accPass",
                 "accounts.accIsActive",
                 "roles.roleName"
-            ],[
+            ], [
                 "accLogin" => $this->form->login
-                    ]);
+            ]);
+               
             // 2.1 jeśli osoba istnieje to wpisz dane do obiektu formularza
         } catch (\PDOException $e) {
             Utils::addErrorMessage('Wystąpił błąd podczas odczytu rekordu');
             if (App::getConf()->debug)
                 Utils::addErrorMessage($e->getMessage());
         }
-
-        // try {
-        //     // 2. odczyt z bazy danych osoby o podanym ID (tylko jednego rekordu)
-        //     $record = App::getDB()->get("accounts", [
-        //         "accLogin",
-        //         "accPass",
-        //             ],[
-        //         "accLogin" => $this->form->login
-        //             ]);
-        //     // 2.1 jeśli osoba istnieje to wpisz dane do obiektu formularza
-        // } catch (\PDOException $e) {
-        //     Utils::addErrorMessage('Wystąpił błąd podczas odczytu rekordu');
-        //     if (App::getConf()->debug)
-        //         Utils::addErrorMessage($e->getMessage());
-        // }
-
-         // (takie informacje najczęściej przechowuje się w bazie danych)
-         if ($record && $record['accPass'] == $this->form->pass && $record['accIsActive'] == 1) {
-            RoleUtils::addRole($record['roleName']);
-            
-        } else {
-            Utils::addErrorMessage('Niepoprawny login lub hasło');
+        if(!empty($record['roleName'])){
+            $this->form->role = $record['roleName'];
         }
+    
+         // test hasla
+       if ($record && password_verify($this->form->pass, $record['accPass']) && $record['accIsActive'] == 1) {
+        RoleUtils::addRole($record['roleName']);
+        
+        // Zapisz login i ID w sesji
+        $_SESSION['user'] = [
+            'id' => $record['idAccount'],  // Musisz dołączyć idAccount w zapytaniu SQL
+            'login' => $record['accLogin'],
+            'role' => $record['roleName']
+        ];
+    } else {
+        Utils::addErrorMessage('Niepoprawny login lub hasło');
+    }
 
         return !App::getMessages()->isError();
     }
@@ -92,7 +87,14 @@ class LoginCtrl {
         if ($this->validate()) {
             //zalogowany => przekieruj na główną akcję (z przekazaniem messages przez sesję)
             Utils::addErrorMessage('Poprawnie zalogowano do systemu');
-            App::getRouter()->redirectTo("personList");
+            switch($this->form->role){
+                case 'admin':  App::getRouter()->redirectTo("adminPanel");
+                    break;
+                case 'pracownik':  App::getRouter()->redirectTo("workerPanel");
+                    break;
+                default:  App::getRouter()->redirectTo("roomList");
+                    break;
+            }
         } else {
             //niezalogowany => pozostań na stronie logowania
             $this->generateView();
@@ -103,7 +105,7 @@ class LoginCtrl {
         // 1. zakończenie sesji
         session_destroy();
         // 2. idź na stronę główną - system automatycznie przekieruje do strony logowania
-        App::getRouter()->redirectTo('personList');
+        App::getRouter()->redirectTo('roomList');
     }
 
     public function generateView() {

@@ -5,42 +5,29 @@
 <div class="row admin-pan">
 	<div class="col-12 col-12-mobile"><h1>Panel Admina</h1></div>
 	<div class="col-12 col-12-mobile">
-		<h2>Lista użytkowników i ich ról</h2>
-
-<form method="post" action="{$conf->action_root}toggleUserActive">
-    <label>Wybierz użytkownika:
-        <select name="user_id">
-            {foreach $users_with_roles as $u}
-                <option value="{$u.idAccount}">{$u.accName} ({$u.roleName}) - {if $u.accIsActive}aktywny{else}nieaktywny{/if}</option>
-            {/foreach}
-        </select>
-    </label>
-    <button type="submit">Przełącz status aktywności</button>
-</form>
+		<h2>Lista użytkowników</h2>
 
 <hr/>
 
-<table border="1" cellpadding="5" cellspacing="0">
+<table>
     <thead>
         <tr>
             <th>ID</th>
-            <th>Imię</th>
+            <th>Login</th>
 			<th>Nazwisko</th>
             <th>Rola</th>
-			<th>Data Ur</th>
+            <th>Zmień role</th>
             <th>Status</th>
-            <th>Akcje</th>
+            <th>Przełącz status</th>
         </tr>
     </thead>
     <tbody>
         {foreach $users_with_roles as $u}
         <tr>
             <td>{$u.idAccount}</td>
-            <td>{$u.accName}</td>
+            <td>{$u.accLogin}</td>
 			<td>{$u.accSurname}</td>
             <td>{$u.roleName}</td>
-			<td>{$u.accBirthDate}</td>
-            <td>{if $u.accIsActive}Aktywny{else}Nieaktywny{/if}</td>
             <td>
                 <form method="post" action="{$conf->action_root}updateUserRole" style="display:inline-block;">
                     <input type="hidden" name="user_id" value="{$u.idAccount}" />
@@ -50,6 +37,13 @@
                         {/foreach}
                     </select>
                     <button type="submit">Zmień</button>
+                </form>
+            </td>
+            <td>{if $u.accIsActive}Aktywny{else}Nieaktywny{/if}</td>
+            <td>
+                <form method="post" action="{$conf->action_root}toggleUserActive">
+                <input type="hidden" name="user_id" value="{$u.idAccount}" />
+                <button type="submit">Przełącz status aktywności</button>
                 </form>
             </td>
         </tr>

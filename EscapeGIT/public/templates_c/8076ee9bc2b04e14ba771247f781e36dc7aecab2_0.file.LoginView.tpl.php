@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.30, created on 2025-05-23 20:24:27
+/* Smarty version 3.1.30, created on 2025-06-02 14:50:01
   from "C:\Users\Mateusz\XAMPP\htdocs\Escape\app\views\LoginView.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.30',
-  'unifunc' => 'content_6830bd5bc6a700_34826900',
+  'unifunc' => 'content_683d9df98b5422_95744269',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '8076ee9bc2b04e14ba771247f781e36dc7aecab2' => 
     array (
       0 => 'C:\\Users\\Mateusz\\XAMPP\\htdocs\\Escape\\app\\views\\LoginView.tpl',
-      1 => 1748022811,
+      1 => 1748512042,
       2 => 'file',
     ),
   ),
@@ -21,33 +21,19 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:main.tpl' => 1,
   ),
 ),false)) {
-function content_6830bd5bc6a700_34826900 (Smarty_Internal_Template $_smarty_tpl) {
+function content_683d9df98b5422_95744269 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_loadInheritance();
 $_smarty_tpl->inheritance->init($_smarty_tpl, true);
 ?>
 
 
 <?php 
-$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_9089747356830bd5bc68956_09226657', 'logging');
-?>
-
-
-
-<div class="container">
-<form action="<?php echo $_smarty_tpl->tpl_vars['conf']->value->action_url;?>
-personList">
-	<h3>Opcje wyszukiwania</h3>
-	<div class="row">
-		<div class="col-4 col-12-mobile"><input type="text" placeholder="nazwa" name="sf_surname" value="<?php echo $_smarty_tpl->tpl_vars['searchForm']->value->surname;?>
-" /></div>
-		<div class="col-4 col-12-mobile"><button type="submit" >Filtruj</button></div>
-	</div>
-</form>
-</div>	<?php $_smarty_tpl->inheritance->endChild();
+$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_870409049683d9df98b3bb8_29212495', 'toptop');
+$_smarty_tpl->inheritance->endChild();
 $_smarty_tpl->_subTemplateRender("file:main.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 2, false);
 }
-/* {block 'logging'} */
-class Block_9089747356830bd5bc68956_09226657 extends Smarty_Internal_Block
+/* {block 'toptop'} */
+class Block_870409049683d9df98b3bb8_29212495 extends Smarty_Internal_Block
 {
 public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
 ?>
@@ -91,11 +77,15 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 					<?php }?>
 				</div>
 			</div>
+			<div class="col-12">
+					<a href="<?php echo $_smarty_tpl->tpl_vars['conf']->value->action_root;?>
+registerShow">Nie masz konta?</a>
+				</div>
 			<br>
 	</form>	
 </div>
 <?php
 }
 }
-/* {/block 'logging'} */
+/* {/block 'toptop'} */
 }

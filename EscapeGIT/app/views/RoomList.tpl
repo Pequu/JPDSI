@@ -13,11 +13,6 @@
 </form>
 </div>	
 
-
-<div class="container">
-<a href="{$conf->action_root}personNew">+ Nowa osoba</a>
-</div>	
-
 <div class="container">
 	<div class="row">
 	{foreach $rooms as $r}
@@ -27,7 +22,7 @@
 			<span class="image br"><img src="{$conf->asset_path}/images/{$r["roomCover"]}.jpg" alt="logo" /></span>
 			<p>{$r["roomName"]}, {$r["roomPrice"]}zł  <br><br>
 				 {$r["roomDescription"]}
-				 <a href="{$conf->action_url}personEdit/{$r['idRoom']}"><h4>Rezerwuj</a> | <a href="{$conf->action_url}personDelete/{$r['idRoom']}">Usuń</h4></a>
+				 <h4><a href="{$conf->action_url}roomReservationShow/{$r['idRoom']}">Rezerwuj</a>
 			</p>		
 		</div>
 	{/strip}

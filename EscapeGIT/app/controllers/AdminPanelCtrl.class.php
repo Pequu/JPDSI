@@ -133,4 +133,7 @@ class AdminPanelCtrl {
 
         App::getRouter()->forwardTo("adminPanelEdit");
     }
+    public function generateView() {
+        App::getSmarty()->display("AdminPanel.tpl");
+    }
 }
