@@ -70,7 +70,7 @@ class WorkerPanelCtrl {
             "reservations.resIsActive"
         ], $where);
 
-        // Liczba wszystkich rekordów do paginacji (bez LIMIT)
+        // Liczba wszystkich rekordów do stronicowania
         $countWhere = !empty($search_params) ? ["AND" => $search_params] : [];
 
         $countRecords = App::getDB()->select("reservations", [
@@ -93,17 +93,19 @@ class WorkerPanelCtrl {
         $totalPages = 1;
     }
 
-    // Przekazanie danych do widoku (poza blokiem try/catch – zawsze działa)
+    // Przekazanie danych do widoku 
     App::getSmarty()->assign("records", $records);
     App::getSmarty()->assign("currentPage", $page);
     App::getSmarty()->assign("totalPages", $totalPages);
     App::getSmarty()->assign('searchForm', $this->form);
 
-    App::getSmarty()->display("WorkerPanel.tpl");
+    if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest') {
+    App::getSmarty()->display("WorkerPanelTable.tpl");
+    } else {
+        App::getSmarty()->display("WorkerPanel.tpl");
+    }
+
 }
-
-
-
         public function action_toggleResActive() {
         $resId = ParamUtils::getFromRequest('res_id');
 
