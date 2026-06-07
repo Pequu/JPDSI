@@ -3,5 +3,5 @@ Mateusz Rzymowski PAW 2
 
 Zadania do zajęć
 
-#EscapeGIT
+# EscapeGIT
 Projekt Zaliczeniowy
